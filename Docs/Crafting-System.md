@@ -185,6 +185,18 @@ Raw materials used as ingredients (Wooden Log, Stone, Plant Fiber, Branch, Iron 
    - Sprite / name / description as needed
 3. No UI code changes are required; groups refresh from `ItemAPI.GetCraftableItems`.
 
+## Testing: starter materials
+
+`DebugCraftingStarter` on `Canvas/Inventory` grants crafting materials when Play Mode starts.
+
+**Toggle it in the Inspector:**
+
+1. Select `Canvas/Inventory` in the Hierarchy
+2. Find the **Debug Crafting Starter** component
+3. Uncheck **Grant Starter Materials** to stop auto-granting (or disable the component)
+
+Default amounts are enough to craft every current recipe at least once (logs, iron ore, plant fiber, stone, branches).
+
 ## Notes / Caveats
 
 - Crafting is instantaneous; there is no progress bar, station, or crafting queue.
