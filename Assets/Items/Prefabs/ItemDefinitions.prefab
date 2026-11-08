@@ -1,0 +1,266 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5236646722743401443
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5236646722743401444}
+  - component: {fileID: 5236646722743401445}
+  m_Layer: 0
+  m_Name: ItemDefinitions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5236646722743401444
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5236646722743401443}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 250.25069, y: 27.53702, z: 292.5548}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5236646722743401445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5236646722743401443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6ea7cf8fbe3e6141968d8466fd79981, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Items:
+  - Name: Wooden Axe
+    ItemSubType: 1
+    ItemType: 2
+    Sprite: {fileID: 21300000, guid: 31cfde123be7b734db268022c8c8f763, type: 3}
+    Description: A Wooden Axe. Used to fell trees. It's poorly weighted, making it
+      not the greatest tool for self-defense, but it will do in a pinch.
+    IsStackable: 0
+    Amount: 0
+    IsCraftable: 1
+    ResourceGatherTypes: 01000000
+    ResourceGatheringEffectiveness: 1.5
+    CraftingRecipe:
+    - ItemSubType: 10
+      Amount: 15
+    - ItemSubType: 14
+      Amount: 10
+    LootTable: 0
+    ItemWorldPrefab: {fileID: 0}
+  - Name: Wooden Bow
+    ItemSubType: 2
+    ItemType: 2
+    Sprite: {fileID: 21300000, guid: 8e7a39602c85aa74f8bf6c44d0a7f073, type: 3}
+    Description: 
+    IsStackable: 0
+    Amount: 0
+    IsCraftable: 1
+    ResourceGatherTypes: 
+    ResourceGatheringEffectiveness: 1
+    CraftingRecipe:
+    - ItemSubType: 10
+      Amount: 10
+    - ItemSubType: 12
+      Amount: 15
+    LootTable: 0
+    ItemWorldPrefab: {fileID: 0}
+  - Name: Wooden Platform
+    ItemSubType: 4
+    ItemType: 1
+    Sprite: {fileID: 21300000, guid: 84be8cda961061346ac4c8ce22bde98d, type: 3}
+    Description: A Wooden platform. Used to build player structures. This is the
+      floor piece, it is the first piece used to start building.
+    IsStackable: 1
+    Amount: 0
+    IsCraftable: 1
+    ResourceGatherTypes: 
+    ResourceGatheringEffectiveness: 1
+    CraftingRecipe:
+    - ItemSubType: 10
+      Amount: 50
+    LootTable: 0
+    ItemWorldPrefab: {fileID: 0}
+  - Name: Stone Wall
+    ItemSubType: 5
+    ItemType: 1
+    Sprite: {fileID: 0}
+    Description: 
+    IsStackable: 1
+    Amount: 0
+    IsCraftable: 0
+    ResourceGatherTypes: 
+    ResourceGatheringEffectiveness: 1
+    CraftingRecipe: []
+    LootTable: 0
+    ItemWorldPrefab: {fileID: 0}
+  - Name: Stone Doorway
+    ItemSubType: 6
+    ItemType: 1
+    Sprite: {fileID: 0}
+    Description: 
+    IsStackable: 1
+    Amount: 0
+    IsCraftable: 0
+    ResourceGatherTypes: 
+    ResourceGatheringEffectiveness: 1
+    CraftingRecipe: []
+    LootTable: 0
+    ItemWorldPrefab: {fileID: 0}
+  - Name: Wooden Door
+    ItemSubType: 7
+    ItemType: 1
+    Sprite: {fileID: 0}
+    Description: 
+    IsStackable: 1
+    Amount: 0
+    IsCraftable: 0
+    ResourceGatherTypes: 
+    ResourceGatheringEffectiveness: 1
+    CraftingRecipe: []
+    LootTable: 0
+    ItemWorldPrefab: {fileID: 0}
+  - Name: Wall Torch
+    ItemSubType: 8
+    ItemType: 1
+    Sprite: {fileID: 0}
+    Description: 
+    IsStackable: 1
+    Amount: 0
+    IsCraftable: 0
+    ResourceGatherTypes: 
+    ResourceGatheringEffectiveness: 1
+    CraftingRecipe: []
+    LootTable: 0
+    ItemWorldPrefab: {fileID: 0}
+  - Name: Wooden Chest
+    ItemSubType: 9
+    ItemType: 1
+    Sprite: {fileID: 0}
+    Description: 
+    IsStackable: 1
+    Amount: 0
+    IsCraftable: 0
+    ResourceGatherTypes: 
+    ResourceGatheringEffectiveness: 1
+    CraftingRecipe: []
+    LootTable: 0
+    ItemWorldPrefab: {fileID: 0}
+  - Name: Wooden Log
+    ItemSubType: 10
+    ItemType: 0
+    Sprite: {fileID: 21300000, guid: 76863046070068c40a58d222171fbe3f, type: 3}
+    Description: Harvested from trees using an Axe. This is they key to your survival.
+      Many uses will be found for this, but where to begin?
+    IsStackable: 1
+    Amount: 0
+    IsCraftable: 0
+    ResourceGatherTypes: 
+    ResourceGatheringEffectiveness: 1
+    CraftingRecipe: []
+    LootTable: 0
+    ItemWorldPrefab: {fileID: 0}
+  - Name: Wooden Pickaxe
+    ItemSubType: 3
+    ItemType: 2
+    Sprite: {fileID: 21300000, guid: eec20e98e388ef44585fe0d22e3218f0, type: 3}
+    Description: Hit rocks with this to get stone and ore
+    IsStackable: 0
+    Amount: 0
+    IsCraftable: 1
+    ResourceGatherTypes: 02000000
+    ResourceGatheringEffectiveness: 1.5
+    CraftingRecipe:
+    - ItemSubType: 10
+      Amount: 10
+    - ItemSubType: 14
+      Amount: 25
+    LootTable: 0
+    ItemWorldPrefab: {fileID: 0}
+  - Name: Stone
+    ItemSubType: 11
+    ItemType: 2
+    Sprite: {fileID: 21300000, guid: 0da3fa82222b3a64896f8de1c3d13033, type: 3}
+    Description: A chunk of stone
+    IsStackable: 1
+    Amount: 0
+    IsCraftable: 0
+    ResourceGatherTypes: 
+    ResourceGatheringEffectiveness: 0
+    CraftingRecipe: []
+    LootTable: 0
+    ItemWorldPrefab: {fileID: 5789946612238977825, guid: a60906917d468d448b273f211e6cf00f,
+      type: 3}
+  - Name: Plant Fiber
+    ItemSubType: 12
+    ItemType: 0
+    Sprite: {fileID: 21300000, guid: b0101923b1afdd541b61222f1f18580c, type: 3}
+    Description: A fiber gathered from plants. Used in crafting.
+    IsStackable: 1
+    Amount: 0
+    IsCraftable: 0
+    ResourceGatherTypes: 
+    ResourceGatheringEffectiveness: 0
+    CraftingRecipe: []
+    LootTable: 0
+    ItemWorldPrefab: {fileID: 0}
+  - Name: Branch
+    ItemSubType: 13
+    ItemType: 0
+    Sprite: {fileID: 21300000, guid: d739e821b950f2d41b947d82aaf5e054, type: 3}
+    Description: Sturdy branches gathered from trees. Used for crafting.
+    IsStackable: 1
+    Amount: 0
+    IsCraftable: 0
+    ResourceGatherTypes: 
+    ResourceGatheringEffectiveness: 0
+    CraftingRecipe: []
+    LootTable: 0
+    ItemWorldPrefab: {fileID: 105690273203489223, guid: ee814390823226e478fb9c7d418f8ed3,
+      type: 3}
+  - Name: Iron Ore
+    ItemSubType: 14
+    ItemType: 0
+    Sprite: {fileID: 21300000, guid: ecbba1c00d6b9d645b3d64f4172f6b97, type: 3}
+    Description: A precious resource gathered from rocks in the surrounding area.
+      Can be smelted into ingots.
+    IsStackable: 1
+    Amount: 0
+    IsCraftable: 0
+    ResourceGatherTypes: 
+    ResourceGatheringEffectiveness: 0
+    CraftingRecipe: []
+    LootTable: 0
+    ItemWorldPrefab: {fileID: 0}
+  - Name: Stone Axe
+    ItemSubType: 15
+    ItemType: 2
+    Sprite: {fileID: 21300000, guid: e49c99fba6fc39141816607d33f7f13c, type: 3}
+    Description: A stone axe, used to gather resources. Not the greatest tool, but
+      better than nothing...
+    IsStackable: 0
+    Amount: 0
+    IsCraftable: 1
+    ResourceGatherTypes: 0100000002000000
+    ResourceGatheringEffectiveness: 1
+    CraftingRecipe:
+    - ItemSubType: 11
+      Amount: 10
+    - ItemSubType: 13
+      Amount: 10
+    LootTable: 0
+    ItemWorldPrefab: {fileID: 0}
