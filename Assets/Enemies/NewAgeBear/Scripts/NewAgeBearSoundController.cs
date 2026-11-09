@@ -49,7 +49,7 @@ public class NewAgeBearSoundController : MonoBehaviour {
     }
 
     void onPursue() {
-        audioSource.PlayAudio(enemyChase, true);
+        audioSource.PlayAudio(enemyChase);
     }
 
     void onSeenPlayer(GameObject target) {

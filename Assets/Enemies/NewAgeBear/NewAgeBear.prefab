@@ -83,7 +83,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 12.5
+  m_Radius: 22
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4707344928532666880
 GameObject:
@@ -2052,7 +2052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db527663259bd8a43ae2eed72beff2d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TurnToInspectDelay: 5
+  TurnToInspectDelay: 1.2
 --- !u!114 &9099803346849482679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2065,7 +2065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32b5d785a794c794992ba46dcafb06ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeBetweenAttacks: 3
+  TimeBetweenAttacks: 1.25
 --- !u!114 &9099803346849482680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2078,11 +2078,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22c2823a40eb9704e86094ecb9401023, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DelayPursuit: 2.5
-  PursuitSpeed: 8
+  DelayPursuit: 1
+  PursuitSpeed: 13
   TargetDistance: 10
   LeashRadius: 75
-  DelayAfterReachingDestination: 2
+  DelayAfterReachingDestination: 1
 --- !u!195 &9099803346849482681
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2093,10 +2093,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 2.5
-  m_Acceleration: 8
+  m_Speed: 5
+  m_Acceleration: 14
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 220
   m_StoppingDistance: 5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -2118,7 +2118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WanderRadius: 50
-  WaitDuration: 5
+  WaitDuration: 1.5
 --- !u!114 &9099803346849482683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2133,7 +2133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAttention: {fileID: 8300000, guid: 7a8bb5b82be605343825afb9230d6447, type: 3}
   enemyRoar: {fileID: 8300000, guid: 33ec5785e89e3944381f3950d57740ad, type: 3}
-  enemyChase: {fileID: 8300000, guid: 5f1711c9a55dbea408bf3e2be8613b10, type: 3}
+  enemyChase: {fileID: 8300000, guid: 2855897c5ffca4241aaa82c6ba29f191, type: 3}
   enemyMeleeAttack: {fileID: 8300000, guid: d509171afc661f84aaae9031b4d7e4e3, type: 3}
   enemyLostTarget: {fileID: 8300000, guid: 800eb1809bb2c9a468633ca5d3508701, type: 3}
   enemyHurt: {fileID: 8300000, guid: 3cc9c047a2bb53246a34d3b02432c473, type: 3}
@@ -2163,7 +2163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1b83b942af2e64439b94732e95c4081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PeripheralVision: 0.2
+  PeripheralVision: 0
   SuspicionDuration: 10
 --- !u!114 &1184163971238454415
 MonoBehaviour:
