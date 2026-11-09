@@ -593,6 +593,194 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1465662157}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1191320205
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1191320210}
+  - component: {fileID: 1191320209}
+  - component: {fileID: 1191320208}
+  - component: {fileID: 1191320207}
+  - component: {fileID: 1191320206}
+  - component: {fileID: 1191320211}
+  - component: {fileID: 1191320212}
+  m_Layer: 0
+  m_Name: NetworkManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1191320206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191320205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4c00512c4f05e54a888296755510d4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Voyageur.Networking.DisableSceneFpsWhenNetworked
+  fpsObjectName: FPSController
+--- !u!114 &1191320207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191320205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 895aaa7c6769398499e5139af193386d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Voyageur.Networking.NetworkBootstrap
+  role: 0
+  address: 127.0.0.1
+  port: 7777
+  autoStart: 1
+  showDebugGui: 1
+  preferClientWhenNotMainEditor: 1
+--- !u!114 &1191320208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191320205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6960e84d07fb87f47956e7a81d71c4e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.Transports.UTP.UnityTransport
+  m_ProtocolType: 0
+  m_UseWebSockets: 0
+  m_UseEncryption: 0
+  m_MaxPacketQueueSize: 128
+  m_MaxPayloadSize: 6144
+  m_HeartbeatTimeoutMS: 500
+  m_ConnectTimeoutMS: 1000
+  m_MaxConnectAttempts: 60
+  m_DisconnectTimeoutMS: 30000
+  ConnectionData:
+    Address: 127.0.0.1
+    Port: 7777
+    WebSocketPath: 
+    ServerListenAddress: 127.0.0.1
+    ClientBindPort: 0
+  DebugSimulator:
+    PacketDelayMS: 0
+    PacketJitterMS: 0
+    PacketDropRate: 0
+--- !u!114 &1191320209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191320205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 593a2fe42fa9d37498c96f9a383b6521, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkManager
+  NetworkManagerExpanded: 0
+  NetworkConfig:
+    ProtocolVersion: 0
+    NetworkTransport: {fileID: 1191320208}
+    PlayerPrefab: {fileID: 285693129779746956, guid: 22ad04a98cefbf64e9e41cb0b8231c27,
+      type: 3}
+    Prefabs:
+      NetworkPrefabsLists:
+      - {fileID: 11400000, guid: ed6bb7e69e73b014b8c7cd31430220e9, type: 2}
+    TickRate: 30
+    ClientConnectionBufferTimeout: 10
+    ConnectionApproval: 0
+    ConnectionData: 
+    EnableTimeResync: 0
+    TimeResyncInterval: 30
+    EnsureNetworkVariableLengthSafety: 0
+    EnableSceneManagement: 1
+    ForceSamePrefabs: 1
+    RecycleNetworkIds: 1
+    NetworkIdRecycleDelay: 120
+    RpcHashSize: 0
+    LoadSceneTimeOut: 120
+    SpawnTimeout: 10
+    EnableNetworkLogs: 1
+    NetworkTopology: 0
+    UseCMBService: 0
+    AutoSpawnPlayerPrefabClientSide: 1
+    NetworkProfilingMetrics: 1
+    OldPrefabList: []
+  RunInBackground: 1
+  LogLevel: 1
+--- !u!4 &1191320210
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191320205}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 250, y: 30.5, z: 250}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1191320211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191320205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80b4c3e149b17cd41ba7e538607037e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Voyageur.Networking.NetworkPlayerSpawnPoints
+  spawnPositions:
+  - {x: 250, y: 30.5, z: 250}
+  - {x: 254, y: 30.5, z: 250}
+  - {x: 250, y: 30.5, z: 254}
+  - {x: 254, y: 30.5, z: 254}
+--- !u!114 &1191320212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191320205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a82e9b33b8ff2e743ab83ca6174a0f76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Voyageur.Networking.NetworkBuildingCatalog
+  entries:
+  - ItemSubType: 4
+    Prefab: {fileID: 4862628750297585390, guid: ef71e27a56ab55548b3da6e52c13a59b,
+      type: 3}
+  - ItemSubType: 5
+    Prefab: {fileID: 565072550695633049, guid: 57c26dbd35900e641bad2e2874ee1405, type: 3}
+  - ItemSubType: 6
+    Prefab: {fileID: 2872624834789223223, guid: 5aacc9c9e8572f7458fe0c38332a80a8,
+      type: 3}
+  - ItemSubType: 7
+    Prefab: {fileID: 5871369492967504763, guid: 28a05c4dd71a468428f4a194e747887b,
+      type: 3}
+  - ItemSubType: 8
+    Prefab: {fileID: 100000, guid: 1e5c742accdc1824fb01f98f446fa63c, type: 3}
+  - ItemSubType: 9
+    Prefab: {fileID: 3366837307603401070, guid: b2e79dce000840042ac92f8788ac91ea,
+      type: 3}
 --- !u!1001 &1465662157
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4161,3 +4349,4 @@ SceneRoots:
   - {fileID: 979426891}
   - {fileID: 601777385}
   - {fileID: 35055019}
+  - {fileID: 1191320210}

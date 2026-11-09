@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Lukes Scene.unity
     guid: 4a2f11e0fc66c78408323d19ad65f47f
+  - enabled: 1
+    path: Assets/Scenes/NetTest.unity
+    guid: 51b784910aa29714193da4415908123c
   m_configObjects: {}

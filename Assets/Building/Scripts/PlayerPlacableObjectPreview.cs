@@ -53,7 +53,7 @@ public class PlayerPlacableObjectPreview : MonoBehaviour {
     private void Update() {
         validate();
 
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(0) && !GameState.IsMouseActive) {
             if (isValid) {
                 placeObject();
             }
@@ -94,8 +94,37 @@ public class PlayerPlacableObjectPreview : MonoBehaviour {
 
     void placeObject() {
         onPlayerPlacedObject?.Invoke();
+
+        var itemIdentifier = GetComponent<ItemIdentifier>() ?? GetComponentInParent<ItemIdentifier>();
+        var networkBuilding = FindOwnerNetworkBuilding();
+        if (networkBuilding != null && itemIdentifier != null) {
+            networkBuilding.RequestPlace(
+                itemIdentifier.ItemSubType,
+                transform.position,
+                transform.rotation,
+                transform.lossyScale);
+            return;
+        }
+
+        // Single-player / offline fallback
         var placedObject = Instantiate(PlacableObject, transform.position, transform.rotation);
         placedObject.transform.localScale = transform.lossyScale;
+    }
+
+    Voyageur.Networking.NetworkPlayerBuilding FindOwnerNetworkBuilding() {
+        if (Unity.Netcode.NetworkManager.Singleton == null ||
+            !Unity.Netcode.NetworkManager.Singleton.IsListening) {
+            return null;
+        }
+
+        var buildings = FindObjectsByType<Voyageur.Networking.NetworkPlayerBuilding>(FindObjectsInactive.Exclude);
+        for (int i = 0; i < buildings.Length; i++) {
+            if (buildings[i] != null && buildings[i].IsOwner) {
+                return buildings[i];
+            }
+        }
+
+        return null;
     }
 
 }
