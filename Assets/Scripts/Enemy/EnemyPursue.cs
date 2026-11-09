@@ -79,13 +79,13 @@ public class EnemyPursue : MonoBehaviour {
                 NavMesh.SamplePosition(target.transform.position, out var targetPosition, 99, NavMesh.AllAreas);
 
                 if (targetPosition.hit) {
-                    navMeshAgent.SetDestination(targetPosition.position);
+                    navMeshAgent.TrySetDestination(targetPosition.position);
                 }
 
                 reachedTarget = false;
             } else {
                 if (!reachedTarget) { // target reached
-                    navMeshAgent.ResetPath();
+                    navMeshAgent.TryResetPath();
                     onReachedTarget?.Invoke();
                     reachedTarget = true;
                     yield return new WaitForSeconds(DelayAfterReachingDestination);
@@ -103,7 +103,7 @@ public class EnemyPursue : MonoBehaviour {
 
     void stopPursuing() {
         enemy.ResetAggro();
-        navMeshAgent.ResetPath();
+        navMeshAgent.TryResetPath();
 
         if (chaseTargetCoroutine != null) {
             StopCoroutine(chaseTargetCoroutine);
@@ -111,7 +111,9 @@ public class EnemyPursue : MonoBehaviour {
 
         chaseTargetCoroutine = null;
 
-        navMeshAgent.speed = initialSpeed;
+        if (navMeshAgent != null) {
+            navMeshAgent.speed = initialSpeed;
+        }
     }
 
     void abandonTarget() {

@@ -36,6 +36,13 @@ public class EnemyRagdoll : MonoBehaviour {
     }
 
     void OnEnemyDied() {
+        ApplyNetworkDeath();
+    }
+
+    /// <summary>
+    /// Used by networked clients (and death event on server) to enable ragdoll presentation.
+    /// </summary>
+    public void ApplyNetworkDeath() {
         if (animator) {
             animator.enabled = false;
         }

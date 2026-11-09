@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 15024, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: NetTestTwoPlayers
   m_EditorClassIdentifier: UnityEditor.MultiplayerModule.dll::Unity.Multiplayer.PlayMode.Editor.OrchestratedScenario
-  m_Description: NetTest Host + 1 Editor Client
+  m_Description: Lukes Scene Host + 1 Editor Client clone
   m_EnableEditors: 1
   m_MainEditorInstance:
     Name: Main Host
@@ -20,7 +20,7 @@ MonoBehaviour:
     m_Nodes: []
     m_Role: 3
     m_PlayerTag: Host
-    m_InitialScene: {fileID: 102900000, guid: 51b784910aa29714193da4415908123c, type: 3}
+    m_InitialScene: {fileID: 102900000, guid: 4a2f11e0fc66c78408323d19ad65f47f, type: 3}
     PlayerInstanceIndex: 0
   m_EditorInstances:
   - Name: Client Editor
@@ -28,7 +28,7 @@ MonoBehaviour:
     m_Nodes: []
     m_Role: 1
     m_PlayerTag: Client
-    m_InitialScene: {fileID: 102900000, guid: 51b784910aa29714193da4415908123c, type: 3}
+    m_InitialScene: {fileID: 102900000, guid: 4a2f11e0fc66c78408323d19ad65f47f, type: 3}
     PlayerInstanceIndex: 0
     m_AdvancedConfiguration:
       StreamLogsToMainEditor: 0
@@ -43,7 +43,7 @@ MonoBehaviour:
       Hash: c16915d1f789adfc5d3631ffc39c502e
     m_InstanceItems:
     - rid: 4502595973866062023
-    - rid: 4502595973866062136
+    - rid: 4502595973866062779
   references:
     version: 2
     RefIds:
@@ -62,18 +62,17 @@ MonoBehaviour:
           InitialScene: {fileID: 102900000, guid: 4a2f11e0fc66c78408323d19ad65f47f,
             type: 3}
         m_Decorators: []
-    - rid: 4502595973866062136
-      type: {class: 'InstanceItem`2[[Unity.Multiplayer.PlayMode.Editor.LocalPlayerController, UnityEditor.MultiplayerModule],[Unity.Multiplayer.PlayMode.Editor.LocalPlayerController/InstanceSettings, UnityEditor.MultiplayerModule]]',
+    - rid: 4502595973866062779
+      type: {class: 'InstanceItem`2[[Unity.Multiplayer.PlayMode.Editor.CloneEditorController, UnityEditor.MultiplayerModule],[Unity.Multiplayer.PlayMode.Editor.CloneEditorController/InstanceSettings, UnityEditor.MultiplayerModule]]',
         ns: Unity.Multiplayer.PlayMode.Editor, asm: UnityEditor.MultiplayerModule}
       data:
-        m_Id: 56ed2b57d4274735a14c02ec50808fec
-        m_Name: Instance
+        m_Id: 1e366064336b4412a692428184edeb4f
+        m_Name: Player 2
         m_RunMode: 0
         m_Settings:
-          BuildProfile: {fileID: 11400000, guid: d9a65ea718a00dc44859e31505e1c999,
-            type: 2}
+          PlayerTag: 
+          RoleMask: 1
+          PlayerInstanceIndex: 1
           StreamLogsToMainEditor: 0
           LogsColor: {r: 0.3643, g: 0.581, b: 0.8679, a: 1}
-          Arguments: -voyageur-role Client -screen-fullscreen 0 -screen-width 1024
-            -screen-height 720
         m_Decorators: []

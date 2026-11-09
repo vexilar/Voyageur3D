@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Voyageur.Networking;
 
 public class EnemyHealth : MonoBehaviour {
 
@@ -12,6 +13,12 @@ public class EnemyHealth : MonoBehaviour {
     public int Health = 100;
 
     List<EnemyHitbox> enemyHitboxes = new List<EnemyHitbox>();
+    NetworkEnemyAuthority networkEnemy;
+    bool isDead;
+
+    private void Awake() {
+        networkEnemy = GetComponent<NetworkEnemyAuthority>();
+    }
 
     private void Start() {
         enemyHitboxes = GetComponentsInChildren<EnemyHitbox>().ToList();
@@ -19,19 +26,45 @@ public class EnemyHealth : MonoBehaviour {
     }
 
     void onHit(EnemyBodyPartType enemyBodyPartType, bool isCritical, DamageSource source) {
-        var damage = source.Damage;
+        if (isDead || source == null) {
+            return;
+        }
 
-        if (source.IsFromPlayer) {
+        // Networked enemies: authority component owns damage validation / replication.
+        if (networkEnemy != null && networkEnemy.IsSpawned) {
+            networkEnemy.SubmitHit(source, isCritical);
+            return;
+        }
+
+        ApplyHit(source.Damage, source.IsFromPlayer, isCritical, source);
+    }
+
+    /// <summary>
+    /// Server-only entry used by <see cref="NetworkEnemyAuthority"/> after a validated hit.
+    /// </summary>
+    public void ApplyNetworkDamage(int damage, bool isFromPlayer, bool isCritical) {
+        ApplyHit(damage, isFromPlayer, isCritical, source: null);
+    }
+
+    void ApplyHit(int damage, bool isFromPlayer, bool isCritical, DamageSource source) {
+        if (isDead) {
+            return;
+        }
+
+        if (isFromPlayer) {
             damage = PlayerStats.CalculatePlayerDamage(damage, isCritical);
         }
 
-        Events.invokeOnEnemyHit(gameObject, source);
+        if (source != null) {
+            Events.invokeOnEnemyHit(gameObject, source);
+        }
 
         Health -= damage;
-
         Debug.Log($"Ouch my health is {Health}");
 
         if (Health <= 0) {
+            Health = 0;
+            isDead = true;
             onEnemyDied?.Invoke();
         } else {
             onEnemyHurt?.Invoke();

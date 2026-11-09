@@ -60,4 +60,37 @@ public class NewAgeBearSoundController : MonoBehaviour {
         audioSource.PlayAudio(enemyAttention);
     }
 
+    /// <summary>
+    /// Client-side FX playback driven by <see cref="Voyageur.Networking.NetworkEnemyAuthority"/>.
+    /// </summary>
+    public void PlayNetworkFx(string fx) {
+        if (audioSource == null) {
+            audioSource = GetComponent<AudioSource>();
+        }
+
+        switch (fx) {
+            case "Attention":
+                audioSource.PlayAudio(enemyAttention);
+                break;
+            case "Roar":
+                audioSource.PlayAudio(enemyRoar);
+                break;
+            case "Pursue":
+                audioSource.PlayAudio(enemyChase);
+                break;
+            case "MeleeAttack":
+                audioSource.PlayAudio(enemyMeleeAttack, false, .3f);
+                break;
+            case "LostTarget":
+                audioSource.PlayAudio(enemyLostTarget);
+                break;
+            case "Hurt":
+                audioSource.PlayAudio(enemyHurt);
+                break;
+            case "Death":
+                audioSource.PlayAudio(enemyDeath);
+                break;
+        }
+    }
+
 }

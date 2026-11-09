@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using Voyageur.Networking;
 
 public class EnemyWander : MonoBehaviour {
     // Currently we wander right away, then stop wandering if the player is heard, and continue wandering when he leaves the trigger area
@@ -17,6 +18,7 @@ public class EnemyWander : MonoBehaviour {
     EnemyPursue enemyPursue;
     EnemyHealth enemyHealth;
     NavMeshAgent navMeshAgent;
+    NetworkEnemyAuthority networkEnemy;
     Vector3 initialPosition;
 
     Coroutine runningWanderRoutine;
@@ -26,6 +28,7 @@ public class EnemyWander : MonoBehaviour {
         enemyPursue = GetComponent<EnemyPursue>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         enemyHealth = GetComponent<EnemyHealth>();
+        networkEnemy = GetComponent<NetworkEnemyAuthority>();
 
         enemy.onHeardTarget += onHeardTarget;
         enemy.onSeenTarget += onSeenTarget;
@@ -34,7 +37,23 @@ public class EnemyWander : MonoBehaviour {
         enemyHealth.onEnemyDied += onEnemyDied;
 
         initialPosition = transform.position;
-        runningWanderRoutine = StartCoroutine(wander());
+        StartCoroutine(bootstrapWander());
+    }
+
+    IEnumerator bootstrapWander() {
+        // In-scene networked enemies Start() before OnNetworkSpawn. Wait so clients
+        // never begin wander/pathing locally.
+        if (networkEnemy != null) {
+            while (!networkEnemy.IsSpawned) {
+                yield return null;
+            }
+
+            if (!networkEnemy.IsServer) {
+                yield break;
+            }
+        }
+
+        startWandering();
     }
 
     void onEnemyDied() {
@@ -51,7 +70,7 @@ public class EnemyWander : MonoBehaviour {
     }
 
     void stopWandering() {
-        navMeshAgent.ResetPath();
+        navMeshAgent.TryResetPath();
         if (runningWanderRoutine != null) {
             StopCoroutine(runningWanderRoutine);
         }
@@ -60,11 +79,23 @@ public class EnemyWander : MonoBehaviour {
     }
 
     void startWandering() {
+        if (isDead || !isActiveAndEnabled) {
+            return;
+        }
+
+        if (networkEnemy != null && networkEnemy.IsSpawned && !networkEnemy.IsServer) {
+            return;
+        }
+
+        if (runningWanderRoutine != null) {
+            StopCoroutine(runningWanderRoutine);
+        }
+
         runningWanderRoutine = StartCoroutine(wander());
     }
 
     IEnumerator wander() {
-        while (!isDead) {
+        while (!isDead && isActiveAndEnabled) {
             yield return new WaitForSeconds(WaitDuration);
 
             // pick a spot within a sphere around the enemy's starting position
@@ -72,13 +103,13 @@ public class EnemyWander : MonoBehaviour {
             NavMesh.SamplePosition(randomPosition, out var wanderPosition, WanderRadius, NavMesh.AllAreas);
 
             if (wanderPosition.hit) {
-                navMeshAgent.SetDestination(wanderPosition.position);
+                navMeshAgent.TrySetDestination(wanderPosition.position);
             }
 
             bool hasReachedPosition = false;
             float wanderTimout = 0f;
 
-            while (!hasReachedPosition) {
+            while (!hasReachedPosition && !isDead && isActiveAndEnabled) {
                 yield return new WaitForSeconds(.5f);
                 wanderTimout += .5f;
 
@@ -86,6 +117,8 @@ public class EnemyWander : MonoBehaviour {
                 hasReachedPosition = Vector3.Distance(transform.position, wanderPosition.position) < .5f || wanderTimout >= 20f;
             }
         }
+
+        runningWanderRoutine = null;
     }
 
 }

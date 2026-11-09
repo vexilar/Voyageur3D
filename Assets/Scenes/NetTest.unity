@@ -249,7 +249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Voyageur.Networking.NetworkBootstrap
   role: 0
   address: 127.0.0.1
-  port: 7777
+  port: 7779
   autoStart: 1
   showDebugGui: 1
   preferClientWhenNotMainEditor: 1
@@ -276,7 +276,7 @@ MonoBehaviour:
   m_DisconnectTimeoutMS: 30000
   ConnectionData:
     Address: 127.0.0.1
-    Port: 7777
+    Port: 7779
     WebSocketPath: 
     ServerListenAddress: 127.0.0.1
     ClientBindPort: 0
@@ -312,7 +312,7 @@ MonoBehaviour:
     TimeResyncInterval: 30
     EnsureNetworkVariableLengthSafety: 0
     EnableSceneManagement: 1
-    ForceSamePrefabs: 1
+    ForceSamePrefabs: 0
     RecycleNetworkIds: 1
     NetworkIdRecycleDelay: 120
     RpcHashSize: 0

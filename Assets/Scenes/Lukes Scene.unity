@@ -558,6 +558,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: NewAgeBear
       objectReference: {fileID: 0}
+    - target: {fileID: 7581975683119318228, guid: b811a4d406a66aa458669903f364c930,
+        type: 3}
+      propertyPath: m_InScenePlaced
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7581975683119318228, guid: b811a4d406a66aa458669903f364c930,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 65774208
+      objectReference: {fileID: 0}
+    - target: {fileID: 7581975683119318228, guid: b811a4d406a66aa458669903f364c930,
+        type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7581975683119318228, guid: b811a4d406a66aa458669903f364c930,
+        type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 3283248111
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -628,6 +648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Voyageur.Networking.DisableSceneFpsWhenNetworked
   fpsObjectName: FPSController
+  warnAfterSeconds: 15
 --- !u!114 &1191320207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -642,7 +663,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Voyageur.Networking.NetworkBootstrap
   role: 0
   address: 127.0.0.1
-  port: 7777
+  port: 7779
   autoStart: 1
   showDebugGui: 1
   preferClientWhenNotMainEditor: 1
@@ -669,7 +690,7 @@ MonoBehaviour:
   m_DisconnectTimeoutMS: 30000
   ConnectionData:
     Address: 127.0.0.1
-    Port: 7777
+    Port: 7779
     WebSocketPath: 
     ServerListenAddress: 127.0.0.1
     ClientBindPort: 0
@@ -706,7 +727,7 @@ MonoBehaviour:
     TimeResyncInterval: 30
     EnsureNetworkVariableLengthSafety: 0
     EnableSceneManagement: 1
-    ForceSamePrefabs: 1
+    ForceSamePrefabs: 0
     RecycleNetworkIds: 1
     NetworkIdRecycleDelay: 120
     RpcHashSize: 0

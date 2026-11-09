@@ -50,7 +50,7 @@ public class EnemyTurnToInspect : MonoBehaviour {
     }
 
     void interuptTurnToInspect() {
-        navMeshAgent.ResetPath();
+        navMeshAgent.TryResetPath();
 
         if (turnToInspectCoroutine != null) {
             StopCoroutine(turnToInspectCoroutine);
@@ -66,7 +66,7 @@ public class EnemyTurnToInspect : MonoBehaviour {
         NavMesh.SamplePosition(destination, out var meshDestination, 99, NavMesh.AllAreas);
 
         if (meshDestination.hit) {
-            navMeshAgent.SetDestination(meshDestination.position);
+            navMeshAgent.TrySetDestination(meshDestination.position);
         }
 
         onTurnAroundToInspect?.Invoke();

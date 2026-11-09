@@ -15,7 +15,7 @@ namespace Voyageur.Networking
     {
         [SerializeField] NetworkRuntimeRole role = NetworkRuntimeRole.Host;
         [SerializeField] string address = "127.0.0.1";
-        [SerializeField] ushort port = 7777;
+        [SerializeField] ushort port = 7779;
         [SerializeField] bool autoStart = true;
         [SerializeField] bool showDebugGui = true;
         [SerializeField] bool preferClientWhenNotMainEditor = true;
@@ -31,12 +31,31 @@ namespace Voyageur.Networking
                 networkManager = FindFirstObjectByType<NetworkManager>();
             }
 
+            ApplySharedLocalEndpointIfPresent();
             role = ResolveRuntimeRole();
             ApplyTransportEndpoint();
         }
 
+        void ApplySharedLocalEndpointIfPresent()
+        {
+            // MPPM clones often keep a stale in-memory scene after the main Editor saves a
+            // new port. A Resources asset is always loaded fresh and keeps Host/Client aligned.
+            if (!NetworkLocalEndpoint.TryLoad(out var endpoint))
+            {
+                return;
+            }
+
+            address = endpoint.Address;
+            port = endpoint.Port;
+        }
+
         NetworkRuntimeRole ResolveRuntimeRole()
         {
+            if (TryGetPortFromCommandLine(out var portFromArgs))
+            {
+                port = portFromArgs;
+            }
+
             if (TryGetRoleFromCommandLine(out var fromArgs))
             {
                 return fromArgs;
@@ -68,6 +87,26 @@ namespace Voyageur.Networking
                 }
 
                 if (Enum.TryParse(args[i + 1], true, out parsed))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        static bool TryGetPortFromCommandLine(out ushort parsed)
+        {
+            parsed = 0;
+            var args = Environment.GetCommandLineArgs();
+            for (int i = 0; i < args.Length - 1; i++)
+            {
+                if (!string.Equals(args[i], "-voyageur-port", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                if (ushort.TryParse(args[i + 1], out parsed) && parsed > 0)
                 {
                     return true;
                 }
@@ -119,9 +158,18 @@ namespace Voyageur.Networking
                     break;
             }
 
+            if (!started)
+            {
+                string hint = runtimeRole == NetworkRuntimeRole.Client
+                    ? "Is the Host listening on this address/port?"
+                    : "UDP port is likely already bound by another Unity/Voyageur Host. Stop the other instance and retry.";
+                Debug.LogError(
+                    $"[NetworkBootstrap] Failed to start {runtimeRole} @ {address}:{port}. {hint}");
+            }
+
             status = started
                 ? $"Started {runtimeRole} @ {address}:{port}"
-                : $"Failed to start {runtimeRole}";
+                : $"Failed to start {runtimeRole} @ {address}:{port}";
             Debug.Log($"[NetworkBootstrap] role={runtimeRole} address={address}:{port} started={started}");
         }
 
@@ -132,6 +180,18 @@ namespace Voyageur.Networking
                 networkManager.Shutdown();
                 status = "Shutdown";
             }
+        }
+
+        void OnDisable()
+        {
+            // Leaving Play Mode must release the UDP listen socket; otherwise the next
+            // Host start fails with "Server failed to bind" on the same Editor process.
+            ShutdownNetworking();
+        }
+
+        void OnApplicationQuit()
+        {
+            ShutdownNetworking();
         }
 
         void ApplyTransportEndpoint()
@@ -153,7 +213,8 @@ namespace Voyageur.Networking
                 return;
             }
 
-            transport.SetConnectionData(address, port);
+            // Listen on the same loopback address clients use for local Editor/MPPM.
+            transport.SetConnectionData(address, port, address);
         }
 
         string DescribeRole()
@@ -184,14 +245,17 @@ namespace Voyageur.Networking
         static bool IsMainEditorInstance()
         {
 #if UNITY_EDITOR
+            // MPPM virtual players always live under Library/VP/<id>/. This is the most
+            // reliable signal when CurrentPlayer reflection fails across package versions.
+            var dataPath = Application.dataPath.Replace('\\', '/');
+            if (dataPath.IndexOf("/Library/VP/", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                return false;
+            }
+
             try
             {
-                var type = Type.GetType("Unity.Multiplayer.Playmode.CurrentPlayer, Unity.Multiplayer.Playmode");
-                if (type == null)
-                {
-                    type = Type.GetType("Unity.Multiplayer.Playmode.CurrentPlayer, Unity.Multiplayer.Playmode.Runtime");
-                }
-
+                var type = FindCurrentPlayerType();
                 var property = type?.GetProperty(
                     "IsMainEditor",
                     System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static);
@@ -207,6 +271,56 @@ namespace Voyageur.Networking
             }
 #endif
             return true;
+        }
+
+        static Type FindCurrentPlayerType()
+        {
+            // Unity 6.x ships this on UnityEngine.MultiplayerModule with capital "Mode".
+            string[] assemblyQualifiedNames =
+            {
+                "Unity.Multiplayer.PlayMode.CurrentPlayer, UnityEngine.MultiplayerModule",
+                "Unity.Multiplayer.Playmode.CurrentPlayer, Unity.Multiplayer.Playmode",
+                "Unity.Multiplayer.Playmode.CurrentPlayer, Unity.Multiplayer.Playmode.Runtime",
+                "Unity.Multiplayer.Playmode.CurrentPlayer, Unity.Multiplayer.Playmode.Common.Runtime"
+            };
+
+            for (int i = 0; i < assemblyQualifiedNames.Length; i++)
+            {
+                var type = Type.GetType(assemblyQualifiedNames[i]);
+                if (type != null)
+                {
+                    return type;
+                }
+            }
+
+            string[] typeNames =
+            {
+                "Unity.Multiplayer.PlayMode.CurrentPlayer",
+                "Unity.Multiplayer.Playmode.CurrentPlayer"
+            };
+
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                for (int i = 0; i < typeNames.Length; i++)
+                {
+                    Type type = null;
+                    try
+                    {
+                        type = assembly.GetType(typeNames[i], false);
+                    }
+                    catch
+                    {
+                        // Ignored — some dynamic assemblies throw on GetType.
+                    }
+
+                    if (type != null)
+                    {
+                        return type;
+                    }
+                }
+            }
+
+            return null;
         }
 
         void OnGUI()
